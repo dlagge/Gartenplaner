@@ -1,5 +1,5 @@
 import { RouterOutlet } from '@angular/router';
-import { AfterViewInit, Component, HostListener } from "@angular/core";
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from "@angular/core";
 import { Camera } from '../classes/camera';
 import { Scene } from '../classes/scene';
 import { Renderer } from '../classes/renderer';
@@ -7,13 +7,15 @@ import { Controls } from '../classes/controls';
 import { Lights } from '../classes/lights';
 import { Geometry } from '../classes/geometry';
 import { animate } from '@angular/animations';
+import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NewplantbuttonComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 
 export class AppComponent implements AfterViewInit {
@@ -33,12 +35,12 @@ export class AppComponent implements AfterViewInit {
   }
 
   @HostListener('window:resize', ['$event'])
-	onResize(event: { target: { innerWidth: number; innerHeight: number; }; }) {
+  onResize(event: { target: { innerWidth: number; innerHeight: number; }; }) {
     this.camera.getCamera().aspect = event.target.innerWidth / event.target.innerHeight;
     this.camera.getCamera().updateProjectionMatrix();
     this.renderer.getRenderer().setSize(event.target.innerWidth, event.target.innerHeight);
     this.animate();
-	}
+  }
 
   @HostListener("window:mousemove", ["$event"])
   @HostListener('window:mousewheel', ['$event'])
@@ -47,7 +49,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   init() {
-    
     this.ground.createPlane(this.ground_width, this.ground_length);
     this.scene.getScene().add(
       this.ground.getPlane(),
@@ -67,4 +68,3 @@ export class AppComponent implements AfterViewInit {
     this.renderer.getRenderer().render(this.scene.getScene(), this.camera.getCamera());
   }
 }
-

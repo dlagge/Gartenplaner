@@ -12,5 +12,4 @@ export class Camera {
   getCamera() {
     return this.camera;
   }
-
 }
