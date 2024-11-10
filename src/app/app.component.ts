@@ -8,12 +8,11 @@ import { Lights } from '../classes/lights';
 import { Geometry } from '../classes/geometry';
 import { animate } from '@angular/animations';
 import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.component';
-import { NewplantpopupComponent } from './newplantpopup/newplantpopup.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NewplantbuttonComponent, NewplantpopupComponent],
+  imports: [RouterOutlet, NewplantbuttonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

@@ -1,8 +1,10 @@
 <div id="newplantpopupwindow">
     <h1>Pflanze hinzufügen</h1>
-    <button id="newplantpopupwindowclose" [ngClass]="newplantbuttonclosestate">
-        <img id="buttonimg" src="assets/plus.png" />
+    <button id="newplantbutton" class="newplantpopupwindowclose" [ngClass]="newplantbuttonclosestate">
+        <img id="buttonimg" class="newplantpopupwindowclose" src="assets/plus.png" />
     </button>
     <input id="newplantinput" />
-    <div id="newplantpopuptiles"></div>
+    <div id="newplantpopuptiles">
+        <newplantpopuptile source="assets/karotte.png" title="Test Titel"></newplantpopuptile>
+    </div>
 </div>

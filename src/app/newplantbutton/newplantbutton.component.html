@@ -1,3 +1,4 @@
-<button [ngClass]="newplantbuttonstate">
-    <img src="assets/plus.png" />
+<button [ngClass]="newplantbuttonstate" class="addplantbutton">
+    <img src="assets/plus.png" class="addplantbutton" />
 </button>
+<newplantpopup *ngIf="visible" (changeEvent)="onDataChange($event)"></newplantpopup>

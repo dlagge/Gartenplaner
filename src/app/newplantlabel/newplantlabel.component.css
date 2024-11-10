@@ -1,0 +1,20 @@
+button {
+    cursor: pointer;
+    border: none;
+    float: left;
+    color: white;
+    font-size: 1rem;
+    padding: 0.4rem;
+    margin-top: 0.5rem;
+    margin-right: 0.7rem;
+    border-radius: 1rem;
+}
+
+.label_touched {
+    background-color: #b4dbff;
+    transition: 0.4s;
+}
+
+.label_not_touched {
+    background-color: #b3847a;
+}

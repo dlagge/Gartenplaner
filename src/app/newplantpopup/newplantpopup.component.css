@@ -15,7 +15,7 @@
     overflow: auto;
 }
 
-#newplantpopupwindowclose {
+#newplantbutton {
     position: absolute;
     right: 0.8rem;
     top: 0.8rem;
@@ -58,10 +58,10 @@ h1 {
 
 .close_touched {
     background-color: #b4dbff;
-    transition: 1s;
+    transition: 0.4s;
 }
 
 .close_not_touched {
     background-color: #b3847a;
-    transition: 1s;
+    transition: 0.4s;
 }
