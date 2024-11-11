@@ -47,7 +47,10 @@ h1 {
     font-size: 1rem;
     font-weight: normal;
     padding-left: 0.5rem;
-
+    background-image: url('/assets/general_images/lupe.png');
+    background-position: right 0.3rem center;
+    background-size: 1.4rem;
+    background-repeat: no-repeat;
 }
 
 #buttonimg {

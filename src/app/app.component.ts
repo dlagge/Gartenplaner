@@ -6,7 +6,9 @@ import { Renderer } from '../classes/renderer';
 import { Controls } from '../classes/controls';
 import { Lights } from '../classes/lights';
 import { Geometry } from '../classes/geometry';
+import { Model } from '../classes/model'
 import { animate } from '@angular/animations';
+import * as THREE from 'three';
 import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.component';
 
 @Component({
@@ -15,7 +17,7 @@ import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.compone
   imports: [RouterOutlet, NewplantbuttonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class AppComponent implements AfterViewInit {
@@ -28,7 +30,10 @@ export class AppComponent implements AfterViewInit {
   controls = new Controls(this.camera.getCamera(), this.renderer.getRenderer().domElement);
   ground_width: number = 150;
   ground_length: number = 150;
-  screen_width: number = 0;
+  pointer = new THREE.Vector2();
+  raycaster = new THREE.Raycaster();
+  dbobjects: any[] = [];
+  mesh: any = '';
 
   ngAfterViewInit(): void {
     this.init();
@@ -39,7 +44,6 @@ export class AppComponent implements AfterViewInit {
     this.camera.getCamera().aspect = event.target.innerWidth / event.target.innerHeight;
     this.camera.getCamera().updateProjectionMatrix();
     this.renderer.getRenderer().setSize(event.target.innerWidth, event.target.innerHeight);
-    this.animate();
   }
 
   @HostListener("window:mousemove", ["$event"])
@@ -56,7 +60,7 @@ export class AppComponent implements AfterViewInit {
       this.lights.getDirLight1(),
       this.lights.getDirLight2()
     );
-    this.animate();
+    this.dbobjects.push(this.ground.getPlane());
   }
 
   animate() {
@@ -66,5 +70,40 @@ export class AppComponent implements AfterViewInit {
 
   render() {
     this.renderer.getRenderer().render(this.scene.getScene(), this.camera.getCamera());
+  }
+
+  // Lädt das Model auf die Szene
+  createModel(modelname: any) {
+    let model = new Model();
+    model.setModelName('/assets/plant_models/' + modelname + '.glb');
+    model.getModel().load(model.getModelName(), (gltf) => {
+      this.mesh = gltf.scene;
+      this.mesh.position.set(0, 0, 0);
+      this.dbobjects.push(this.mesh);
+      this.scene.getScene().add(this.mesh);
+    });
+  }
+
+  // Der Raycaster baut ein Mapping zwischen Mauszeiger und Position auf der Gartenfläche, während man den Mauszeiger bewegt.
+  @HostListener("window:mousemove", ["$event"])
+  onPointerMoveObject(event: { srcElement: any; clientX: number; clientY: number; }) {
+    this.pointer.set((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1);
+    this.raycaster.setFromCamera(this.pointer, this.camera.getCamera());
+    const intersects = this.raycaster.intersectObjects(this.dbobjects, false);
+    if (intersects.length > 0 && event.srcElement.id == "garden" && this.mesh !== '') {
+      let intersect: any = intersects[0];
+      this.mesh.position.copy(intersect.point).add(intersect.face.normal);
+    }
+    this.render();
+  }
+
+  // Objekte werden auf die Gartenfläche gesetzt, wenn es einen Linksmausklick gibt.
+  @HostListener("window:mousedown", ["$event"])
+  onPointerDownObject(event: { button: number; }) {
+
+    // Bei Rechtsklick soll das Objekt nicht mehr an dem Mauszeiger hängen
+    if (event.button == 2) {
+      this.mesh = '';
+    };
   }
 }

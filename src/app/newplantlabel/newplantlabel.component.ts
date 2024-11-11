@@ -10,16 +10,12 @@ import { CommonModule } from '@angular/common';
 })
 export class NewplantlabelComponent {
   @Input() labeltitle: string | undefined;
+
   title: string | undefined;
   labelstate: string = 'label_not_touched';
 
   ngOnInit() {
     this.title = this.labeltitle;
-  }
-
-  @HostListener('click')
-  onClick() {
-    console.log("test");
   }
 
   @HostListener('mouseover')

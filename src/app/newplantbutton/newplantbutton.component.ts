@@ -15,7 +15,7 @@ export class NewplantbuttonComponent {
   newplantbuttonstate: string = 'not_touched';
   visible: boolean = false;
 
-  onDataChange(visibility: boolean) {
+  setVisible(visibility: boolean) {
     this.visible = visibility;
   }
 
