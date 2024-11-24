@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export class Controls {
@@ -12,6 +13,10 @@ export class Controls {
         this.controls.enableZoom = true;
         this.controls.zoomSpeed = 2;
         this.controls.rotateSpeed = 0.5;
+        this.controls.mouseButtons = {
+            MIDDLE: THREE.MOUSE.ROTATE,
+            RIGHT: THREE.MOUSE.PAN
+        }
     }
 
     getControls() {

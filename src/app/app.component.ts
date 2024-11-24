@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { RouterOutlet } from '@angular/router';
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from "@angular/core";
 import { Camera } from '../classes/camera';
@@ -8,7 +9,6 @@ import { Lights } from '../classes/lights';
 import { Geometry } from '../classes/geometry';
 import { Model } from '../classes/model'
 import { animate } from '@angular/animations';
-import * as THREE from 'three';
 import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.component';
 
 @Component({
@@ -89,9 +89,21 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
+  setMeshBlank() {
+    this.mesh = '';
+  }
+
+  setMeshVisible() {
+    this.mesh.visible = true;
+  }
+
+  setMeshHide() {
+    this.mesh.visible = false;
+  }
+
   // Der Raycaster baut ein Mapping zwischen Mauszeiger und Position auf der Gartenfläche, während man den Mauszeiger bewegt.
   @HostListener("window:mousemove", ["$event"])
-  onPointerMoveObject(event: { srcElement: any; clientX: number; clientY: number; }) {
+  onPointerMoveObject(event: { clientX: number; clientY: number; }) {
     this.pointer.set((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1);
     this.raycaster.setFromCamera(this.pointer, this.camera.getCamera());
     const intersects = this.raycaster.intersectObjects(this.dbobjects);
@@ -100,26 +112,34 @@ export class AppComponent implements AfterViewInit {
       this.mesh.position.copy(intersect.point).add(intersect.face.normal);
       this.meshposition = this.mesh.position;
     }
-    this.render();
+    
 
+    /*
+    if (this.mesh !== '' && intersects.length === 0) {
+      this.mesh.visible = false;
+    }
+
+    if (this.mesh !== '' && intersects.length > 0) {
+      this.mesh.visible = true;
+    }
+
+    */
+
+    this.render();
   }
 
-  // Objekte werden auf die Gartenfläche gesetzt, wenn es einen Linksmausklick gibt.
+  // Objekte werden auf die Gartenfläche gesetzt bzw. kopiert, wenn es einen Linksmausklick gibt.
   @HostListener("window:mousedown", ["$event"])
-  onPointerDownObject(event: { button: number; srcElement: any; clientX: number; clientY: number; }) {
+  onPointerDownObject(event: { button: number; srcElement: any; }) {
 
-    // Objekte in den Boden setzen
+    // Objekte in den Boden rein setzen
     const floorvec = new THREE.Vector3(0, 3, 0);
-
-    if (this.mesh !== '') {
-
-      // Model auf Boden platzieren
+    
+    if (this.mesh !== '' && event.button !== 2 && event.button !== 1 && event.srcElement.id == 'garden') {
       let model_placed = new Model();
-      console.log("model is placed");
       model_placed.setModelName('/assets/plant_models/' + this.modelname + '.glb');
       model_placed.getModel().load(model_placed.getModelName(), (gltf) => {
         let mesh_placed = gltf.scene;
-        console.log(this.meshposition);
         mesh_placed.position.set(this.meshposition.x, this.meshposition.y, this.meshposition.z).sub(floorvec);
         this.scene.getScene().add(mesh_placed);
         this.visibleobjects.push(mesh_placed);

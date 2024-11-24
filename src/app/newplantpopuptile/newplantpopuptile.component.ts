@@ -29,6 +29,7 @@ export class NewplantpopuptileComponent {
   onClick(event: { target: any; }) {
     if (event.target.id == 'plantimg') {
       this.app.createModel(this.source);
+      
     }
   }
 }
