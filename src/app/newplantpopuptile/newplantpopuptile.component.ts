@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewplantlabelComponent } from '../newplantlabel/newplantlabel.component';
@@ -6,7 +7,7 @@ import { AppComponent } from '../app.component';
 @Component({
   selector: 'newplantpopuptile',
   standalone: true,
-  imports: [CommonModule, NewplantlabelComponent, AppComponent],
+  imports: [CommonModule, NewplantlabelComponent],
   templateUrl: './newplantpopuptile.component.html',
   styleUrl: './newplantpopuptile.component.css'
 })
@@ -28,8 +29,11 @@ export class NewplantpopuptileComponent {
   @HostListener('click', ['$event'])
   onClick(event: { target: any; }) {
     if (event.target.id == 'plantimg') {
-      this.app.createModel(this.source);
-      
+      this.app.camera.setCameraPositionDefault();
+      this.app.controls.getControls().target.set(-2.499297762341835, -3.916147334965456, 1.3931736218334798);
+      this.app.controls.getControls().update();
+      this.app.createModel(this.source, true);
+      document.body.style.cursor = 'none';
     }
   }
 }

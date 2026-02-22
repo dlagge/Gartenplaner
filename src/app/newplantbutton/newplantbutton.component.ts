@@ -6,7 +6,7 @@ import { AppComponent } from '../app.component';
 @Component({
   selector: 'newplantbutton',
   standalone: true,
-  imports: [CommonModule, NewplantpopupComponent, AppComponent],
+  imports: [CommonModule, NewplantpopupComponent],
   templateUrl: './newplantbutton.component.html',
   styleUrl: './newplantbutton.component.css'
 })
@@ -38,6 +38,7 @@ export class NewplantbuttonComponent {
     }
 
     if (event.target.className == 'addplantbutton' && this.visible === false && this.newplantbuttonstate === 'touched') {
+      document.body.style.cursor = 'auto';
       this.newplantbuttonstate = 'not_touched';
       this.app.setMeshBlank();
     }

@@ -12,4 +12,9 @@ export class Camera {
   getCamera() {
     return this.camera;
   }
+
+  setCameraPositionDefault() {
+    this.camera.position.set(-2.4990851024885776, 208.73425375993054, 1.393173621833383);
+    this.camera.rotation.set(-1.5707963267948972, 0, 1.5707963272501375);
+  }
 }

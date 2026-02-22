@@ -6,9 +6,8 @@ export class Controls {
 
     constructor(camera: any, rendDom: HTMLElement) {
         this.controls = new OrbitControls(camera, rendDom);
-        this.controls.minDistance = 100;
+        this.controls.minDistance = 50;
         this.controls.maxDistance = 400;
-        this.controls.maxPolarAngle = Math.PI / 2.5;
         this.controls.zoomToCursor = true;
         this.controls.enableZoom = true;
         this.controls.zoomSpeed = 2;
