@@ -5,11 +5,10 @@ import { NewplantlabelComponent } from '../newplantlabel/newplantlabel.component
 import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'newplantpopuptile',
-  standalone: true,
-  imports: [CommonModule, NewplantlabelComponent],
-  templateUrl: './newplantpopuptile.component.html',
-  styleUrl: './newplantpopuptile.component.css'
+    selector: 'newplantpopuptile',
+    imports: [CommonModule, NewplantlabelComponent],
+    templateUrl: './newplantpopuptile.component.html',
+    styleUrl: './newplantpopuptile.component.css'
 })
 export class NewplantpopuptileComponent {
   @Input() source: string = "";

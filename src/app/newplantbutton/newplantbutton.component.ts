@@ -4,11 +4,10 @@ import { NewplantpopupComponent } from '../newplantpopup/newplantpopup.component
 import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'newplantbutton',
-  standalone: true,
-  imports: [CommonModule, NewplantpopupComponent],
-  templateUrl: './newplantbutton.component.html',
-  styleUrl: './newplantbutton.component.css'
+    selector: 'newplantbutton',
+    imports: [CommonModule, NewplantpopupComponent],
+    templateUrl: './newplantbutton.component.html',
+    styleUrl: './newplantbutton.component.css'
 })
 
 export class NewplantbuttonComponent {

@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NewplantpopuptileComponent } from '../newplantpopuptile/newplantpopuptile.component';
 
 @Component({
-  selector: 'newplantpopup',
-  standalone: true,
-  imports: [CommonModule, NewplantpopuptileComponent],
-  templateUrl: './newplantpopup.component.html',
-  styleUrl: './newplantpopup.component.css'
+    selector: 'newplantpopup',
+    imports: [CommonModule, NewplantpopuptileComponent],
+    templateUrl: './newplantpopup.component.html',
+    styleUrl: './newplantpopup.component.css'
 })
 export class NewplantpopupComponent {
   @Output() showPlantPopup = new EventEmitter();

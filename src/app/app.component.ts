@@ -12,12 +12,11 @@ import { animate } from '@angular/animations';
 import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NewplantbuttonComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    selector: 'app-root',
+    imports: [NewplantbuttonComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class AppComponent implements AfterViewInit {
