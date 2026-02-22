@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NewplantlabelComponent } from '../newplantlabel/newplantlabel.component';
 import { AppComponent } from '../app.component';
 
 @Component({
     selector: 'newplantpopuptile',
-    imports: [CommonModule, NewplantlabelComponent],
+    imports: [NewplantlabelComponent],
     templateUrl: './newplantpopuptile.component.html',
     styleUrl: './newplantpopuptile.component.css'
 })

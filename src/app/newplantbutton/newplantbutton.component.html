@@ -1,4 +1,6 @@
 <button [ngClass]="newplantbuttonstate" class="addplantbutton">
-    <img src="assets/general_images/plus.png" class="addplantbutton" />
+  <img src="assets/general_images/plus.png" class="addplantbutton" />
 </button>
-<newplantpopup *ngIf="visible" (showPlantPopup)="setVisible($event)"></newplantpopup>
+@if (visible) {
+  <newplantpopup (showPlantPopup)="setVisible($event)"></newplantpopup>
+}
