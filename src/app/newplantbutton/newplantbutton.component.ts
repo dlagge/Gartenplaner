@@ -1,59 +1,61 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewplantpopupComponent } from '../newplantpopup/newplantpopup.component';
+import { UiService } from '../../services/uiservice';
+import { Subject, takeUntil } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { NewplantpopupComponent } from '../newplantpopup/newplantpopup.component';
 
 @Component({
-    selector: 'newplantbutton',
-    imports: [CommonModule, NewplantpopupComponent],
-    templateUrl: './newplantbutton.component.html',
-    styleUrl: './newplantbutton.component.css'
+  selector: 'newplantbutton',
+  imports: [CommonModule, NewplantpopupComponent],
+  templateUrl: './newplantbutton.component.html',
+  styleUrl: './newplantbutton.component.css'
 })
 
 export class NewplantbuttonComponent {
 
   newplantbuttonstate: string = 'not_touched';
-  visible: boolean = false;
+  private destroy$ = new Subject<void>();
+  isOpen = false;
 
-  constructor(private app: AppComponent) { }
-
-  setVisible(visibility: boolean) {
-    this.visible = visibility;
+  constructor(private app: AppComponent, private uiservice: UiService) {
+    this.uiservice.closePopup$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.close());
   }
 
-  @HostListener('click', ['$event'])
-  onClick(event: { target: any; }) {
-    if (event.target.className == 'addplantbutton' && this.newplantbuttonstate === 'not_touched') {
-      if (this.visible) {
-        this.visible = false;
-      } else {
-        this.visible = true;
-        this.newplantbuttonstate = 'touched';
-      }
-    }
+  open() {
+    this.isOpen = true;
+  }
+  close() {
+    this.isOpen = false;
+  }
 
-    if (event.target.className == 'newplantpopupwindowclose') {
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  clickbutton(event: PointerEvent) {
+    if (event.button !== 0) return;
+    if (this.isOpen) {
+      this.close();
       this.newplantbuttonstate = 'not_touched';
-    }
-
-    if (event.target.className == 'addplantbutton' && this.visible === false && this.newplantbuttonstate === 'touched') {
-      document.body.style.cursor = 'auto';
+    } else if (this.newplantbuttonstate === 'touched') {
       this.newplantbuttonstate = 'not_touched';
       this.app.setMeshBlank();
+      document.body.style.cursor = 'auto';
+    } else if (this.newplantbuttonstate === 'not_touched') {
+      this.open();
+      this.newplantbuttonstate = 'touched';
     }
   }
 
-  @HostListener('mouseover', ['$event'])
-  onMouseOver(event: { target: any; }) {
-    if (event.target.className == 'addplantbutton') {
-      this.app.setMeshHide();
-    }
+  buttonhoverin() {
+    this.app.setMeshHide();
   }
 
-  @HostListener('mouseout', ['$event'])
-  onMouseOut(event: { target: any; }) {
-    if (event.target.className == 'addplantbutton') {
-      this.app.setMeshVisible();
-    }
+  buttonhoverout() {
+    this.app.setMeshVisible();
   }
 }

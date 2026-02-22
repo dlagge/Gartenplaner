@@ -1,1 +1,4 @@
-<button class="labelbutton" [ngClass]="labelstate">{{title}}</button>
+@if(labelparent === source ) {
+<button class="labelbutton" [ngClass]="labelstate" (pointerdown)="clickbutton($event)" (mouseover)="buttonhoverin()"
+    (mouseleave)="buttonhoverout()">{{title}}</button>
+}

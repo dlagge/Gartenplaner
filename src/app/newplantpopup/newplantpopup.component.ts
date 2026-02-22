@@ -1,40 +1,34 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NewplantpopuptileComponent } from '../newplantpopuptile/newplantpopuptile.component';
+import { UiService } from '../../services/uiservice';
 
 @Component({
     selector: 'newplantpopup',
-    imports: [CommonModule, NewplantpopuptileComponent],
+    imports: [FormsModule, CommonModule, NewplantpopuptileComponent],
     templateUrl: './newplantpopup.component.html',
     styleUrl: './newplantpopup.component.css'
 })
 export class NewplantpopupComponent {
-  @Output() showPlantPopup = new EventEmitter();
 
-  newplantbuttonclosestate: string = 'close_not_touched';
-  plantnameinput: string = '';
+    @ViewChild('newPlantInput') inputRef!: ElementRef<HTMLInputElement>;
 
-  @HostListener('click', ['$event'])
-  onClick(event: { target: any; }) {
-    if (event.target.className == 'newplantpopupwindowclose' || event.target.id == 'plantimg') {
-      this.showPlantPopup.emit(false);
-    }
-    if (event.target.className.includes('labelbutton')) {
-      this.plantnameinput = this.plantnameinput + event.target.innerHTML + ',';
-    }
-  }
+    newPlantSearchValue = '';
+    private selectedLabels: string[] = [];
 
-  @HostListener('mouseover', ['$event'])
-  onMouseOver(event: { target: any; }) {
-    if (event.target.className == 'newplantpopupwindowclose') {
-      this.newplantbuttonclosestate = 'close_touched';
+    constructor(sel: UiService) {
+        sel.labelClick$.subscribe(text => {
+            if (!this.selectedLabels.includes(text)) {
+                this.selectedLabels.push(text);
+                this.newPlantSearchValue = this.selectedLabels.join(', ');
+            }
+        });
     }
-  }
 
-  @HostListener('mouseout', ['$event'])
-  onMouseOut(event: { target: any; }) {
-    if (event.target.className != 'newplantpopupwindowclose') {
-      this.newplantbuttonclosestate = 'close_not_touched';
+    enterplantSearch(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            console.log(this.newPlantSearchValue);
+        }
     }
-  }
 }

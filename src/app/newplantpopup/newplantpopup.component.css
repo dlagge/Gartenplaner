@@ -15,17 +15,6 @@
     overflow: auto;
 }
 
-#newplantbutton {
-    position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
-    height: 2.8rem;
-    width: 2.8rem;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-}
-
 h1 {
     color: #707070;
     font-family: Arial;
@@ -51,20 +40,4 @@ h1 {
     background-position: right 0.3rem center;
     background-size: 1.4rem;
     background-repeat: no-repeat;
-}
-
-#buttonimg {
-    width: 1.6rem;
-    margin-top: 0.2rem;
-    transform: rotate(45deg);
-}
-
-.close_touched {
-    background-color: #b4dbff;
-    transition: 0.4s;
-}
-
-.close_not_touched {
-    background-color: #b3847a;
-    transition: 0.4s;
 }

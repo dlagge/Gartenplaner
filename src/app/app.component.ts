@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { RouterOutlet } from '@angular/router';
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from "@angular/core";
 import { Camera } from '../classes/camera';
 import { Scene } from '../classes/scene';
@@ -7,8 +6,7 @@ import { Renderer } from '../classes/renderer';
 import { Controls } from '../classes/controls';
 import { Lights } from '../classes/lights';
 import { Geometry } from '../classes/geometry';
-import { Model } from '../classes/model'
-import { animate } from '@angular/animations';
+import { Model } from '../classes/model';
 import { NewplantbuttonComponent } from './newplantbutton/newplantbutton.component';
 
 @Component({
@@ -42,15 +40,12 @@ export class AppComponent implements AfterViewInit {
     this.init();
   }
 
-  @HostListener('window:resize', ['$event'])
   onResize(event: { target: { innerWidth: number; innerHeight: number; }; }) {
     this.camera.getCamera().aspect = event.target.innerWidth / event.target.innerHeight;
     this.camera.getCamera().updateProjectionMatrix();
     this.renderer.getRenderer().setSize(event.target.innerWidth, event.target.innerHeight);
   }
 
-  @HostListener("window:mousemove", ["$event"])
-  @HostListener('window:mousewheel', ['$event'])
   onMouseMove() {
     this.render();
   }
