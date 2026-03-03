@@ -17,13 +17,14 @@ export class Geometry {
         const color = new THREE.Color();
         const dunkelbraun = new THREE.Color(0xEFA477);
         const braun = new THREE.Color(0xedae87);
+        const gruen = new THREE.Color(0xace07e);
 
         for(let i=0; i<8;i++) {
             color.set(dunkelbraun);
             this.createColors(this.colors, color);
         }
         for(let i=0; i<2;i++) {
-            color.set(braun);
+            color.set(gruen);
             this.createColors(this.colors, color);
         }
         for(let i=0; i<2;i++) {

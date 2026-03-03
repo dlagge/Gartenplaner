@@ -31,7 +31,7 @@ export class NewplantpopuptileComponent {
       this.app.camera.setCameraPositionDefault();
       this.app.controls.getControls().target.set(-2.499297762341835, -3.916147334965456, 1.3931736218334798);
       this.app.controls.getControls().update();
-      this.app.createModel(this.source, true);
+      this.app.createModel(this.source, this.source, true);
 
       document.body.style.cursor = 'none';
     }

@@ -2,8 +2,8 @@ import * as THREE from 'three';
 
 export class Lights {
     ambientLight = new THREE.AmbientLight(0xfff2cc, 2.5);
-    dirLight = new THREE.DirectionalLight(0xffffff, 2.2);
-    dirLight2 = new THREE.DirectionalLight(0xffffff, 2.2);
+    dirLight = new THREE.DirectionalLight(0xffffff, 2.5);
+    dirLight2 = new THREE.DirectionalLight(0xffffff, 2.5);
 
     constructor() {
         this.positionDirLight1();
